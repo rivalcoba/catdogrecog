@@ -78,7 +78,7 @@ validation_steps = 2000
 model_json = classifier.to_json()
 open('catdog_architecture.json', 'w').write(model_json)
 #And the weights learned by our deep network on the training set
-classifier.save_weights('cifar10_weights.h5', overwrite=True)
+classifier.save_weights('catdog_architecture.h5', overwrite=True)
 
 import numpy as np
 from keras.preprocessing import image
