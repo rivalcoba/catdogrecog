@@ -41,6 +41,9 @@ classifier.add(Dense(units = 1, activation = 'sigmoid'))
 # Compiling the CNN
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
+# Summarizing the model
+classifier.summary()
+
 # Part 2 - Fitting the CNN to the images
 
 from keras.preprocessing.image import ImageDataGenerator
@@ -62,11 +65,20 @@ target_size = (64, 64),
 batch_size = 32,
 class_mode = 'binary')
 
-classifier.fit_generator(training_set,
+history = classifier.fit_generator(
+training_set,
 steps_per_epoch = 8000,
 epochs = 25,
 validation_data = test_set,
-validation_steps = 2000)
+verbose = 1,
+validation_steps = 2000
+)
+
+#save model
+model_json = classifier.to_json()
+open('catdog_architecture.json', 'w').write(model_json)
+#And the weights learned by our deep network on the training set
+classifier.save_weights('cifar10_weights.h5', overwrite=True)
 
 import numpy as np
 from keras.preprocessing import image
